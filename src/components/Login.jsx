@@ -9,31 +9,42 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   
-  // Get auth context with a safeguard
+  // Get auth context
   const auth = useAuth();
   
-  // Check if auth context is properly loaded
+  // Enhanced debugging
   useEffect(() => {
-    console.log("Auth context status:", auth ? "Loaded" : "Not loaded");
+    console.log("Auth context full object:", auth);
+    console.log("Login function exists:", !!auth?.login);
+    console.log("Current user:", auth?.currentUser);
   }, [auth]);
 
   async function handleSubmit(e) {
     e.preventDefault();
     
-    // Check if login function exists before trying to use it
-    if (!auth || !auth.login) {
-      setError('Authentication service is not available. Please try again later.');
-      return;
-    }
-    
     try {
       setError('');
       setLoading(true);
+      
+      if (!auth) {
+        console.error("Auth context is undefined");
+        setError('Authentication service is not available. Please try again later.');
+        return;
+      }
+      
+      if (!auth.login) {
+        console.error("Auth login function is undefined");
+        setError('Authentication service is not available. Please try again later.');
+        return;
+      }
+      
+      console.log("Attempting login with:", email);
       await auth.login(email, password);
+      console.log("Login successful");
       navigate('/');
     } catch (err) {
+      console.error('Login error details:', err);
       setError('Failed to log in: ' + (err.message || 'Unknown error'));
-      console.error('Login error:', err);
     } finally {
       setLoading(false);
     }
