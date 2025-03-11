@@ -1,45 +1,39 @@
-/* Your existing base styles */
+/* General Styles */
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #f5f5f5;
-  color: #333;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-button {
-  cursor: pointer;
-}
-
-/* Dashboard component styles */
-.dashboard-container {
   font-family: Arial, sans-serif;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+  background-color: #f5f5f5;
 }
 
+.dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: white;
+  min-height: 100vh;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo and Header */
 .logo-container {
-  margin-bottom: 20px;
+  padding: 20px;
+  text-align: left;
+}
+
+.logo {
+  height: 80px;
+  width: auto;
 }
 
 .header {
   background-color: #222;
   color: white;
-  padding: 15px;
-  margin-bottom: 20px;
+  padding: 20px;
+  text-align: left;
 }
 
 .header h1 {
@@ -47,54 +41,70 @@ button {
   font-size: 24px;
 }
 
+/* Main Content */
 .main-content {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
   padding: 20px;
 }
 
 .main-content h2 {
-  text-align: center;
-  margin-top: 0;
-  margin-bottom: 30px;
-  font-size: 18px;
+  margin: 20px 0;
+  font-size: 20px;
   font-weight: normal;
+  text-align: center;
 }
 
-/* Controls section */
+/* Controls */
 .controls {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
   margin-bottom: 20px;
-  align-items: flex-end;
+  max-width: 800px;
+  margin: 0 auto 20px;
 }
 
 .control-group {
   display: flex;
   flex-direction: column;
-  margin-right: 15px;
+  min-width: 200px;
 }
 
 .control-group label {
-  font-weight: bold;
   margin-bottom: 5px;
+  font-weight: bold;
 }
 
 .control-group input,
 .control-group select {
-  padding: 8px;
+  padding: 8px 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  min-width: 200px;
+  font-size: 14px;
 }
 
-/* Stats row */
+.assign-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 24px;
+  height: 38px;
+}
+
+.assign-button:hover {
+  background-color: #218838;
+}
+
+/* Stats Row */
 .stats-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
 .total-players {
@@ -102,125 +112,129 @@ button {
 }
 
 .history-button {
-  background-color: #a93226;
+  background-color: #b93a32;
   color: white;
   border: none;
-  padding: 8px 15px;
   border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
   cursor: pointer;
 }
 
 .history-button:hover {
-  background-color: #922b21;
+  background-color: #a33029;
 }
 
-/* Games table */
+/* Games Table */
 .games-table {
   width: 100%;
   border-collapse: collapse;
-}
-
-.games-table th,
-.games-table td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+  margin-top: 20px;
 }
 
 .games-table th {
   background-color: #f2f2f2;
-  font-weight: bold;
+  text-align: left;
+  padding: 12px;
+  border: 1px solid #ddd;
 }
 
-/* Category badges */
+.games-table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+}
+
+.games-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Category Badges */
 .category-badge {
   display: inline-block;
-  padding: 5px 10px;
+  padding: 4px 8px;
   border-radius: 4px;
   font-size: 12px;
+  font-weight: bold;
   color: white;
-  text-align: center;
 }
 
 .category-badge.strategy {
-  background-color: #3498db;
+  background-color: #3c6cde;
 }
 
 .category-badge.family {
-  background-color: #2ecc71;
+  background-color: #4caf50;
 }
 
 .category-badge.word {
-  background-color: #9b59b6;
+  background-color: #9c27b0;
 }
 
-/* Status badges */
+/* Status Badges */
 .status-badge {
   display: inline-block;
-  padding: 5px 10px;
+  padding: 4px 8px;
   border-radius: 4px;
   font-size: 12px;
-  text-align: center;
+  font-weight: bold;
 }
 
 .status-badge.available {
-  background-color: #dff0d8;
-  color: #3c763d;
+  background-color: #e8f5e9;
+  color: #2e7d32;
 }
 
 .status-badge.in-use {
-  background-color: #fcf8e3;
-  color: #8a6d3b;
+  background-color: #fff8e1;
+  color: #ff8f00;
 }
 
 .status-badge.unavailable {
-  background-color: #f2dede;
-  color: #a94442;
+  background-color: #ffebee;
+  color: #c62828;
 }
 
-/* Buttons */
+/* Action Buttons */
 .info-button {
-  background-color: #3498db;
+  background-color: #6c757d;
   color: white;
   border: none;
-  padding: 5px 10px;
   border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 12px;
   cursor: pointer;
 }
 
+.available-button,
 .unavailable-button {
-  background-color: #a93226;
+  background-color: #b93a32;
   color: white;
   border: none;
-  padding: 5px 10px;
   border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 12px;
   cursor: pointer;
+  min-width: 120px;
 }
 
-.available-button {
-  background-color: #27ae60;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
+.available-button:hover,
+.unavailable-button:hover,
 .info-button:hover {
-  background-color: #2980b9;
+  opacity: 0.9;
 }
 
-.unavailable-button:hover {
-  background-color: #922b21;
-}
-
-.available-button:hover {
-  background-color: #229954;
-}
-
-/* Spilcafeen logo styling */
-.spilcafeen-logo {
-  max-width: 150px;
-  height: auto;
-  margin-bottom: 15px;
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .controls {
+    flex-direction: column;
+  }
+  
+  .control-group {
+    width: 100%;
+  }
+  
+  .games-table {
+    display: block;
+    overflow-x: auto;
+  }
 }
