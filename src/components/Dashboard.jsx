@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { getDatabase, ref, onValue, update, set } from 'firebase/database';
 import { getAuth } from 'firebase/auth';
-import './Dashboard.css'; // Make sure to create this CSS file
+import './Dashboard.css';
 
 const Dashboard = () => {
   const [games, setGames] = useState([]);
@@ -11,55 +10,33 @@ const Dashboard = () => {
   const [totalActivePlayers, setTotalActivePlayers] = useState(0);
 
   const auth = getAuth();
-  const db = getDatabase();
 
   useEffect(() => {
-    // Load games from Firebase
-    const gamesRef = ref(db, 'games');
-    
-    onValue(gamesRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        const gamesArray = Object.entries(data).map(([id, game]) => ({
-          id,
-          ...game
-        }));
-        setGames(gamesArray);
-        
-        // Calculate total active players
-        const activeGames = gamesArray.filter(game => 
-          game.status === 'In Use' && game.players && game.players > 0
-        );
-        
-        const totalPlayers = activeGames.reduce((sum, game) => 
-          sum + (parseInt(game.players) || 0), 0
-        );
-        
-        setTotalActivePlayers(totalPlayers);
-        console.log('Games loaded:', gamesArray);
-      } else {
-        // If no games exist in the database, initialize with default games
-        console.log('No games found, initializing defaults');
-        initializeDefaultGames();
-      }
-    }, error => {
-      console.error("Database error:", error);
-    });
-  }, [db]);
-
-  const initializeDefaultGames = () => {
+    // Initialize with default games instead of loading from Firebase
+    console.log('Initializing default games');
     const defaultGames = [
-      { name: 'Chess', category: 'Strategy', status: 'Available', table: '-', players: '-', timeInUse: '-' },
-      { name: 'Monopoly', category: 'Family', status: 'Available', table: '-', players: '-', timeInUse: '-' },
-      { name: 'Catan', category: 'Strategy', status: 'Available', table: '-', players: '-', timeInUse: '-' },
-      { name: 'Scrabble', category: 'Word', status: 'Available', table: '-', players: '-', timeInUse: '-' },
-      { name: 'Risk', category: 'Strategy', status: 'Available', table: '-', players: '-', timeInUse: '-' }
+      { id: '0', name: 'Chess', category: 'Strategy', status: 'Available', table: '-', players: '-', timeInUse: '-' },
+      { id: '1', name: 'Monopoly', category: 'Family', status: 'Available', table: '-', players: '-', timeInUse: '-' },
+      { id: '2', name: 'Catan', category: 'Strategy', status: 'Available', table: '-', players: '-', timeInUse: '-' },
+      { id: '3', name: 'Scrabble', category: 'Word', status: 'Available', table: '-', players: '-', timeInUse: '-' },
+      { id: '4', name: 'Risk', category: 'Strategy', status: 'Available', table: '-', players: '-', timeInUse: '-' }
     ];
     
-    defaultGames.forEach((game, index) => {
-      set(ref(db, `games/${index}`), game);
-    });
-  };
+    setGames(defaultGames);
+  }, []);
+
+  // Calculate total active players whenever games change
+  useEffect(() => {
+    const activeGames = games.filter(game => 
+      game.status === 'In Use' && game.players && game.players !== '-'
+    );
+    
+    const totalPlayers = activeGames.reduce((sum, game) => 
+      sum + (parseInt(game.players) || 0), 0
+    );
+    
+    setTotalActivePlayers(totalPlayers);
+  }, [games]);
 
   const assignGame = () => {
     if (!tableNumber || !playerCount) {
@@ -81,34 +58,48 @@ const Dashboard = () => {
     const gameToAssign = selectedGames[0];
     const timestamp = new Date().toLocaleTimeString();
 
-    update(ref(db, `games/${gameToAssign.id}`), {
-      status: 'In Use',
-      table: tableNumber,
-      players: playerCount,
-      timeInUse: timestamp
-    }).then(() => {
-      console.log('Game assigned successfully');
-    }).catch(error => {
-      console.error('Error assigning game:', error);
-    });
+    setGames(games.map(game => {
+      if (game.id === gameToAssign.id) {
+        return {
+          ...game,
+          status: 'In Use',
+          table: tableNumber,
+          players: playerCount,
+          timeInUse: timestamp
+        };
+      }
+      return game;
+    }));
 
     setTableNumber('');
     setPlayerCount('');
   };
 
   const markAsUnavailable = (gameId) => {
-    update(ref(db, `games/${gameId}`), {
-      status: 'Unavailable'
-    });
+    setGames(games.map(game => {
+      if (game.id === gameId) {
+        return {
+          ...game,
+          status: 'Unavailable'
+        };
+      }
+      return game;
+    }));
   };
 
   const markAsAvailable = (gameId) => {
-    update(ref(db, `games/${gameId}`), {
-      status: 'Available',
-      table: '-',
-      players: '-',
-      timeInUse: '-'
-    });
+    setGames(games.map(game => {
+      if (game.id === gameId) {
+        return {
+          ...game,
+          status: 'Available',
+          table: '-',
+          players: '-',
+          timeInUse: '-'
+        };
+      }
+      return game;
+    }));
   };
 
   const showHistory = () => {
