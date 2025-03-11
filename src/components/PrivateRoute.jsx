@@ -1,13 +1,9 @@
-// src/components/PrivateRoute.jsx
-import { Navigate } from 'react-router-dom';
+import React from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
-export default function PrivateRoute({ children }) {
-  const { currentUser, loading } = useAuth();
+export default function PrivateRoute() {
+  const { currentUser } = useAuth();
   
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-  
-  return currentUser ? children : <Navigate to="/login" />;
+  return currentUser ? <Outlet /> : <Navigate to="/login" />;
 }
