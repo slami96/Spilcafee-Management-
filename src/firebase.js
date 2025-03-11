@@ -1,17 +1,17 @@
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyAqQcQFLQjDxLdQKnB3hCUj-3NIwWXB4Mk",
+  authDomain: "spilcafe-games-management.firebaseapp.com",
+  projectId: "spilcafe-games-management",
+  storageBucket: "spilcafe-games-management.firebasestorage.app",
+  messagingSenderId: "1073953765667",
+  appId: "1:1073953765667:web:22b2de3eaaa476bb527496"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-export { auth };
