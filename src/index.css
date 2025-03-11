@@ -1,3 +1,4 @@
+/* Your existing base styles */
 * {
   margin: 0;
   padding: 0;
@@ -20,4 +21,206 @@ body {
 
 button {
   cursor: pointer;
+}
+
+/* Dashboard component styles */
+.dashboard-container {
+  font-family: Arial, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.logo-container {
+  margin-bottom: 20px;
+}
+
+.header {
+  background-color: #222;
+  color: white;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.main-content {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.main-content h2 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 30px;
+  font-size: 18px;
+  font-weight: normal;
+}
+
+/* Controls section */
+.controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  align-items: flex-end;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  margin-right: 15px;
+}
+
+.control-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.control-group input,
+.control-group select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 200px;
+}
+
+/* Stats row */
+.stats-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.total-players {
+  font-weight: bold;
+}
+
+.history-button {
+  background-color: #a93226;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.history-button:hover {
+  background-color: #922b21;
+}
+
+/* Games table */
+.games-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.games-table th,
+.games-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.games-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+/* Category badges */
+.category-badge {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: white;
+  text-align: center;
+}
+
+.category-badge.strategy {
+  background-color: #3498db;
+}
+
+.category-badge.family {
+  background-color: #2ecc71;
+}
+
+.category-badge.word {
+  background-color: #9b59b6;
+}
+
+/* Status badges */
+.status-badge {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.status-badge.available {
+  background-color: #dff0d8;
+  color: #3c763d;
+}
+
+.status-badge.in-use {
+  background-color: #fcf8e3;
+  color: #8a6d3b;
+}
+
+.status-badge.unavailable {
+  background-color: #f2dede;
+  color: #a94442;
+}
+
+/* Buttons */
+.info-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.unavailable-button {
+  background-color: #a93226;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.available-button {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.info-button:hover {
+  background-color: #2980b9;
+}
+
+.unavailable-button:hover {
+  background-color: #922b21;
+}
+
+.available-button:hover {
+  background-color: #229954;
+}
+
+/* Spilcafeen logo styling */
+.spilcafeen-logo {
+  max-width: 150px;
+  height: auto;
+  margin-bottom: 15px;
 }
