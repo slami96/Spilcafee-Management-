@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, onValue, update, set } from 'firebase/database';
 import { getAuth } from 'firebase/auth';
+import './Dashboard.css'; // Make sure to create this CSS file
 
 const Dashboard = () => {
   const [games, setGames] = useState([]);
@@ -35,10 +36,14 @@ const Dashboard = () => {
         );
         
         setTotalActivePlayers(totalPlayers);
+        console.log('Games loaded:', gamesArray);
       } else {
         // If no games exist in the database, initialize with default games
+        console.log('No games found, initializing defaults');
         initializeDefaultGames();
       }
+    }, error => {
+      console.error("Database error:", error);
     });
   }, [db]);
 
@@ -81,6 +86,10 @@ const Dashboard = () => {
       table: tableNumber,
       players: playerCount,
       timeInUse: timestamp
+    }).then(() => {
+      console.log('Game assigned successfully');
+    }).catch(error => {
+      console.error('Error assigning game:', error);
     });
 
     setTableNumber('');
@@ -197,44 +206,50 @@ const Dashboard = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredGames.map((game) => (
-              <tr key={game.id}>
-                <td>{game.name}</td>
-                <td>
-                  <span className={`category-badge ${game.category.toLowerCase()}`}>
-                    {game.category}
-                  </span>
-                </td>
-                <td>
-                  <span className={`status-badge ${game.status.toLowerCase().replace(' ', '-')}`}>
-                    {game.status}
-                  </span>
-                </td>
-                <td>{game.table}</td>
-                <td>{game.players}</td>
-                <td>{game.timeInUse}</td>
-                <td>
-                  <button className="info-button" onClick={() => viewDetails(game)}>
-                    Details
-                  </button>
-                </td>
-                <td>
-                  {game.status === 'Available' ? (
-                    <button className="unavailable-button" onClick={() => markAsUnavailable(game.id)}>
-                      Mark as Unavailable
+            {filteredGames.length > 0 ? (
+              filteredGames.map((game) => (
+                <tr key={game.id}>
+                  <td>{game.name}</td>
+                  <td>
+                    <span className={`category-badge ${game.category.toLowerCase()}`}>
+                      {game.category}
+                    </span>
+                  </td>
+                  <td>
+                    <span className={`status-badge ${game.status.toLowerCase().replace(' ', '-')}`}>
+                      {game.status}
+                    </span>
+                  </td>
+                  <td>{game.table}</td>
+                  <td>{game.players}</td>
+                  <td>{game.timeInUse}</td>
+                  <td>
+                    <button className="info-button" onClick={() => viewDetails(game)}>
+                      Details
                     </button>
-                  ) : game.status === 'In Use' ? (
-                    <button className="available-button" onClick={() => markAsAvailable(game.id)}>
-                      End Game
-                    </button>
-                  ) : (
-                    <button className="available-button" onClick={() => markAsAvailable(game.id)}>
-                      Mark as Available
-                    </button>
-                  )}
-                </td>
+                  </td>
+                  <td>
+                    {game.status === 'Available' ? (
+                      <button className="unavailable-button" onClick={() => markAsUnavailable(game.id)}>
+                        Mark as Unavailable
+                      </button>
+                    ) : game.status === 'In Use' ? (
+                      <button className="available-button" onClick={() => markAsAvailable(game.id)}>
+                        End Game
+                      </button>
+                    ) : (
+                      <button className="available-button" onClick={() => markAsAvailable(game.id)}>
+                        Mark as Available
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="8" className="no-games">No games available. They will appear here once loaded.</td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
