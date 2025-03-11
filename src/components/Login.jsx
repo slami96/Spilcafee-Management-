@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -7,19 +7,33 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
   const navigate = useNavigate();
+  
+  // Get auth context with a safeguard
+  const auth = useAuth();
+  
+  // Check if auth context is properly loaded
+  useEffect(() => {
+    console.log("Auth context status:", auth ? "Loaded" : "Not loaded");
+  }, [auth]);
 
   async function handleSubmit(e) {
     e.preventDefault();
-
+    
+    // Check if login function exists before trying to use it
+    if (!auth || !auth.login) {
+      setError('Authentication service is not available. Please try again later.');
+      return;
+    }
+    
     try {
       setError('');
       setLoading(true);
-      await login(email, password);
+      await auth.login(email, password);
       navigate('/');
     } catch (err) {
-      setError('Failed to log in: ' + err.message);
+      setError('Failed to log in: ' + (err.message || 'Unknown error'));
+      console.error('Login error:', err);
     } finally {
       setLoading(false);
     }
