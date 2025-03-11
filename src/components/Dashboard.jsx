@@ -118,7 +118,11 @@ const Dashboard = () => {
   return (
     <div className="dashboard-container">
       <div className="logo-container">
-        {/* Logo image would go here */}
+        <img 
+          src="/logo.png" 
+          alt="Spilcafeen Logo" 
+          className="logo"
+        />
       </div>
       
       <div className="header">
@@ -130,8 +134,9 @@ const Dashboard = () => {
         
         <div className="controls">
           <div className="control-group">
-            <label>Table Number:</label>
+            <label htmlFor="tableNumber">Table Number:</label>
             <input 
+              id="tableNumber"
               type="text" 
               placeholder="Enter table #" 
               value={tableNumber}
@@ -140,8 +145,9 @@ const Dashboard = () => {
           </div>
           
           <div className="control-group">
-            <label>Number of Players:</label>
+            <label htmlFor="playerCount">Number of Players:</label>
             <input 
+              id="playerCount"
               type="text" 
               placeholder="Enter player count" 
               value={playerCount}
@@ -150,8 +156,9 @@ const Dashboard = () => {
           </div>
           
           <div className="control-group">
-            <label>Filter by Category:</label>
+            <label htmlFor="categorySelect">Filter by Category:</label>
             <select 
+              id="categorySelect"
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
             >
@@ -159,8 +166,13 @@ const Dashboard = () => {
               <option value="Strategy">Strategy</option>
               <option value="Family">Family</option>
               <option value="Word">Word</option>
-              {/* Add more categories as needed */}
             </select>
+          </div>
+          
+          <div className="control-group">
+            <button className="assign-button" onClick={assignGame}>
+              Assign Game
+            </button>
           </div>
         </div>
         
