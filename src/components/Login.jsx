@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import './Login.css'; // Make sure to create this file
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -51,34 +52,36 @@ export default function Login() {
   }
 
   return (
-    <div className="login-container">
-      <h2>Login</h2>
-      {error && <div className="alert alert-danger">{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+    <div className="login-page">
+      <div className="login-container">
+        <h2>Login</h2>
+        {error && <div className="alert-error">{error}</div>}
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button disabled={loading} type="submit" className="login-button">
+            {loading ? 'Logging in...' : 'Log In'}
+          </button>
+        </form>
+        <div className="signup-link">
+          Need an account? <Link to="/signup">Sign Up</Link>
         </div>
-        <div className="form-group">
-          <label>Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button disabled={loading} type="submit">
-          Log In
-        </button>
-      </form>
-      <div className="signup-link">
-        Need an account? <Link to="/signup">Sign Up</Link>
       </div>
     </div>
   );
