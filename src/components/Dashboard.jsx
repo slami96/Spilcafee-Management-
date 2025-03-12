@@ -9,6 +9,82 @@ const Dashboard = () => {
   const [totalActivePlayers, setTotalActivePlayers] = useState(0);
   const [gameHistory, setGameHistory] = useState([]);
   const [showHistoryModal, setShowHistoryModal] = useState(false);
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [selectedGame, setSelectedGame] = useState(null);
+
+  // Game details data
+  const gameDetails = {
+    'Chess': {
+      description: 'A classic strategy board game played on an 8x8 grid. Players control an army of pieces with different movement patterns, trying to checkmate the opponent's king.',
+      recommendedAge: '8+',
+      playerCount: '2'
+    },
+    'Monopoly': {
+      description: 'A popular family board game where players buy, sell, and trade properties to build monopolies and collect rent from opponents.',
+      recommendedAge: '8+',
+      playerCount: '2-8'
+    },
+    'Catan': {
+      description: 'A modern classic strategy game where players collect resources to build settlements, cities, and roads to earn victory points.',
+      recommendedAge: '10+',
+      playerCount: '3-4'
+    },
+    'Scrabble': {
+      description: 'A word game where players score points by forming words with letter tiles on a 15x15 grid board.',
+      recommendedAge: '8+',
+      playerCount: '2-4'
+    },
+    'Risk': {
+      description: 'A strategy board game focused on diplomacy, conflict and conquest. Players aim to conquer territories across a world map.',
+      recommendedAge: '10+',
+      playerCount: '2-6'
+    },
+    'Pandemic': {
+      description: 'A cooperative game where players work together as disease-fighting specialists to treat infections and find cures for diseases.',
+      recommendedAge: '8+',
+      playerCount: '2-4'
+    },
+    'Ticket to Ride': {
+      description: 'A cross-country train adventure where players collect cards to claim railway routes connecting cities throughout North America.',
+      recommendedAge: '8+',
+      playerCount: '2-5'
+    },
+    'Carcassonne': {
+      description: 'A tile-placement game where players develop the landscape of a medieval fortress city one tile at a time.',
+      recommendedAge: '7+',
+      playerCount: '2-5'
+    },
+    'Codenames': {
+      description: 'A social word game where teams compete to identify their agents from codenames on the table while avoiding the assassin.',
+      recommendedAge: '14+',
+      playerCount: '2-8+'
+    },
+    'Dominion': {
+      description: 'A deck-building card game where players start with small decks and acquire new cards to build more effective decks.',
+      recommendedAge: '13+',
+      playerCount: '2-4'
+    },
+    'Azul': {
+      description: 'An abstract strategy game where players collect colored tiles to decorate the walls of a royal palace.',
+      recommendedAge: '8+',
+      playerCount: '2-4'
+    },
+    '7 Wonders': {
+      description: 'A card drafting game where players develop their ancient civilizations through three ages to achieve military, scientific, and cultural dominance.',
+      recommendedAge: '10+',
+      playerCount: '3-7'
+    },
+    'Splendor': {
+      description: 'A card development game where players take on the role of Renaissance merchants trying to build prestige through gem acquisition.',
+      recommendedAge: '10+',
+      playerCount: '2-4'
+    },
+    'Dixit': {
+      description: 'A creative and imaginative party game using cards with dreamlike images where players try to guess which image matches a clue.',
+      recommendedAge: '8+',
+      playerCount: '3-6'
+    }
+  };
 
   // Load games and history from localStorage on component mount
   useEffect(() => {
@@ -24,7 +100,16 @@ const Dashboard = () => {
         { id: '1', name: 'Monopoly', category: 'Family', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
         { id: '2', name: 'Catan', category: 'Strategy', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
         { id: '3', name: 'Scrabble', category: 'Word', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
-        { id: '4', name: 'Risk', category: 'Strategy', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null }
+        { id: '4', name: 'Risk', category: 'Strategy', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
+        { id: '5', name: 'Pandemic', category: 'Cooperative', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
+        { id: '6', name: 'Ticket to Ride', category: 'Family', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
+        { id: '7', name: 'Carcassonne', category: 'Strategy', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
+        { id: '8', name: 'Codenames', category: 'Party', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
+        { id: '9', name: 'Dominion', category: 'Card', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
+        { id: '10', name: 'Azul', category: 'Abstract', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
+        { id: '11', name: '7 Wonders', category: 'Strategy', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
+        { id: '12', name: 'Splendor', category: 'Card', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
+        { id: '13', name: 'Dixit', category: 'Party', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null }
       ];
       
       setGames(defaultGames);
@@ -178,13 +263,22 @@ const Dashboard = () => {
   };
 
   const viewDetails = (game) => {
-    alert(`Game Details:\nName: ${game.name}\nCategory: ${game.category}\nStatus: ${game.status}`);
+    setSelectedGame(game);
+    setShowDetailsModal(true);
+  };
+  
+  const closeDetailsModal = () => {
+    setShowDetailsModal(false);
+    setSelectedGame(null);
   };
 
   // Filter games based on category selection
   const filteredGames = categoryFilter === 'All' 
     ? games 
     : games.filter(game => game.category === categoryFilter);
+
+  // Get unique categories for filter dropdown
+  const categories = ['All', ...new Set(games.map(game => game.category))];
 
   return (
     <div className="dashboard-container">
@@ -233,10 +327,9 @@ const Dashboard = () => {
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
             >
-              <option value="All">All</option>
-              <option value="Strategy">Strategy</option>
-              <option value="Family">Family</option>
-              <option value="Word">Word</option>
+              {categories.map(category => (
+                <option key={category} value={category}>{category}</option>
+              ))}
             </select>
           </div>
         </div>
@@ -366,6 +459,60 @@ const Dashboard = () => {
               ) : (
                 <p className="no-history">No game history available.</p>
               )}
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {/* Details Modal */}
+      {showDetailsModal && selectedGame && (
+        <div className="details-modal-overlay">
+          <div className="details-modal">
+            <div className="details-modal-header">
+              <h2>{selectedGame.name} Details</h2>
+              <button className="close-button" onClick={closeDetailsModal}>×</button>
+            </div>
+            <div className="details-modal-content">
+              <div className="game-details-card">
+                <div className="game-details-row">
+                  <div className="game-details-label">Category:</div>
+                  <div className="game-details-value">
+                    <span className={`category-badge ${selectedGame.category.toLowerCase()}`}>
+                      {selectedGame.category}
+                    </span>
+                  </div>
+                </div>
+                
+                <div className="game-details-row">
+                  <div className="game-details-label">Description:</div>
+                  <div className="game-details-value">
+                    {gameDetails[selectedGame.name]?.description || 'No description available.'}
+                  </div>
+                </div>
+                
+                <div className="game-details-row">
+                  <div className="game-details-label">Recommended Age:</div>
+                  <div className="game-details-value">
+                    {gameDetails[selectedGame.name]?.recommendedAge || 'N/A'}
+                  </div>
+                </div>
+                
+                <div className="game-details-row">
+                  <div className="game-details-label">Player Count:</div>
+                  <div className="game-details-value">
+                    {gameDetails[selectedGame.name]?.playerCount || 'N/A'}
+                  </div>
+                </div>
+                
+                <div className="game-details-row">
+                  <div className="game-details-label">Current Status:</div>
+                  <div className="game-details-value">
+                    <span className={`status-badge ${selectedGame.status.toLowerCase().replace(' ', '-')}`}>
+                      {selectedGame.status}
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
