@@ -55,7 +55,7 @@ export default function Login() {
     <div className="login-page">
       <div className="login-header">
         <div className="logo-container">
-          <img src="/spilcafe_logo.png" alt="Spilcafee Logo" className="logo" />
+          <img src="/images/spilcafe_logo.png" alt="Spilcafee Logo" className="logo" />
         </div>
       </div>
       <div className="login-container">
