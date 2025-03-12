@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import './Login.css'; // Make sure to create this file
+import './Login.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -53,6 +53,11 @@ export default function Login() {
 
   return (
     <div className="login-page">
+      <div className="login-header">
+        <div className="logo-container">
+          <img src="/spilcafe_logo.png" alt="Spilcafee Logo" className="logo" />
+        </div>
+      </div>
       <div className="login-container">
         <h2>Login</h2>
         {error && <div className="alert-error">{error}</div>}
@@ -63,6 +68,7 @@ export default function Login() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
               required
             />
           </div>
@@ -72,6 +78,7 @@ export default function Login() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
               required
             />
           </div>
