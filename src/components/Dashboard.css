@@ -1,4 +1,4 @@
-/* Dashboard.css */
+/* Main Layout */
 .dashboard-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -7,12 +7,14 @@
 }
 
 .logo-container {
-  text-align: center;
+  display: flex;
+  justify-content: center;
   margin-bottom: 20px;
 }
 
 .logo {
-  height: 100px; /* Increased logo size */
+  width: 120px; /* Increased size */
+  height: auto;
 }
 
 .header {
@@ -24,34 +26,41 @@
 
 .header h1 {
   margin: 0;
-  font-size: 24px;
-}
-
-.main-content {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 5px;
-}
-
-.main-content h2 {
-  margin-top: 0;
-  font-size: 18px;
-  margin-bottom: 20px;
   text-align: center;
 }
 
+.main-content {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.main-content h2 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Controls Section */
 .controls {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 20px;
-  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .control-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+  flex: 1;
+  margin-right: 10px;
+}
+
+.control-group:last-child {
+  margin-right: 0;
 }
 
 .control-group label {
@@ -61,13 +70,13 @@
 
 .control-group input,
 .control-group select {
-  padding: 8px 12px;
-  border: 1px solid #ccc;
+  padding: 8px;
+  border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 14px;
-  min-width: 200px;
 }
 
+/* Stats Row */
 .stats-row {
   display: flex;
   justify-content: space-between;
@@ -81,131 +90,145 @@
 }
 
 .history-button {
-  background-color: #B22222;
+  background-color: #b33;
   color: white;
   border: none;
-  padding: 8px 16px;
+  padding: 8px 15px;
   border-radius: 4px;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .history-button:hover {
-  background-color: #8B0000;
+  background-color: #933;
 }
 
+/* Games Table */
 .games-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .games-table th,
 .games-table td {
-  padding: 12px 15px;
+  padding: 10px;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
 
 .games-table th {
-  background-color: #f2f2f2;
+  background-color: #f0f0f0;
   font-weight: bold;
 }
 
 .games-table tr:hover {
-  background-color: #f5f5f5;
+  background-color: #f9f9f9;
 }
 
+.no-games {
+  text-align: center;
+  padding: 20px;
+  color: #777;
+}
+
+/* Category Badges */
 .category-badge {
   display: inline-block;
   padding: 4px 8px;
   border-radius: 4px;
-  font-size: 12px;
   color: white;
+  font-size: 12px;
+  font-weight: bold;
 }
 
-.category-badge.strategy {
-  background-color: #3a75c4;
+.strategy {
+  background-color: #4a69bd;
 }
 
-.category-badge.family {
-  background-color: #5cb85c;
-}
-
-.category-badge.word {
-  background-color: #9370DB;
-}
-
-.category-badge.cooperative {
-  background-color: #4682B4;
-}
-
-.category-badge.party {
-  background-color: #F0E68C;
+.family {
+  background-color: #78e08f;
   color: #333;
 }
 
-.category-badge.card {
-  background-color: #D2691E;
+.word {
+  background-color: #9b59b6;
 }
 
-.category-badge.abstract {
-  background-color: #FF6347;
+.cooperative {
+  background-color: #3498db;
 }
 
+.party {
+  background-color: #f1c40f;
+  color: #333;
+}
+
+.card {
+  background-color: #e67e22;
+}
+
+.abstract {
+  background-color: #e74c3c;
+}
+
+/* Status Badges */
 .status-badge {
   display: inline-block;
   padding: 4px 8px;
   border-radius: 4px;
   font-size: 12px;
+  font-weight: bold;
+}
+
+.available {
+  background-color: #7bed9f;
+  color: #2f3542;
+}
+
+.in-use {
+  background-color: #ff6b6b;
   color: white;
 }
 
-.status-badge.available {
-  background-color: #5cb85c;
+.unavailable {
+  background-color: #a4b0be;
+  color: #2f3542;
 }
 
-.status-badge.in-use {
-  background-color: #f0ad4e;
-}
-
-.status-badge.unavailable {
-  background-color: #d9534f;
-}
-
+/* Action Buttons */
 .info-button {
-  background-color: #5bc0de;
+  background-color: #70a1ff;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 6px 12px;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 12px;
 }
 
-.available-button {
-  background-color: #5cb85c;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
+.info-button:hover {
+  background-color: #5352ed;
 }
 
+.available-button,
 .unavailable-button {
-  background-color: #d9534f;
+  background-color: #b33;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 6px 12px;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 12px;
+  white-space: nowrap;
 }
 
-.no-games {
-  text-align: center;
-  font-style: italic;
-  color: #777;
+.available-button:hover,
+.unavailable-button:hover {
+  background-color: #933;
 }
 
-/* History Modal Styles */
+/* History Modal */
 .history-modal-overlay {
   position: fixed;
   top: 0;
@@ -223,38 +246,37 @@
   background-color: white;
   border-radius: 5px;
   width: 90%;
-  max-width: 1000px;
+  max-width: 900px;
   max-height: 80vh;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .history-modal-header {
+  padding: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
   background-color: #222;
   color: white;
 }
 
 .history-modal-header h2 {
   margin: 0;
-  font-size: 20px;
 }
 
 .close-button {
   background: none;
   border: none;
-  color: white;
   font-size: 24px;
+  color: white;
   cursor: pointer;
 }
 
 .history-modal-content {
-  padding: 20px;
+  padding: 15px;
   overflow-y: auto;
+  max-height: calc(80vh - 60px);
 }
 
 .history-table {
@@ -270,40 +292,49 @@
 }
 
 .history-table th {
-  background-color: #f2f2f2;
+  background-color: #f0f0f0;
   font-weight: bold;
 }
 
 .delete-button {
-  background-color: #d9534f;
+  background-color: #ff6b6b;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 4px 8px;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 12px;
+}
+
+.delete-button:hover {
+  background-color: #ee5253;
 }
 
 .clear-history {
-  margin-top: 20px;
+  margin-top: 15px;
   text-align: right;
 }
 
 .clear-history-button {
-  background-color: #d9534f;
+  background-color: #ff6b6b;
   color: white;
   border: none;
-  padding: 8px 16px;
+  padding: 8px 15px;
   border-radius: 4px;
   cursor: pointer;
 }
 
+.clear-history-button:hover {
+  background-color: #ee5253;
+}
+
 .no-history {
   text-align: center;
-  font-style: italic;
+  padding: 20px;
   color: #777;
 }
 
-/* Details Modal Styles */
+/* Details Modal */
 .details-modal-overlay {
   position: fixed;
   top: 0;
@@ -321,51 +352,46 @@
   background-color: white;
   border-radius: 5px;
   width: 90%;
-  max-width: 600px;
+  max-width: 550px;
   max-height: 80vh;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .details-modal-header {
+  padding: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
   background-color: #222;
   color: white;
 }
 
 .details-modal-header h2 {
   margin: 0;
-  font-size: 20px;
 }
 
 .details-modal-content {
   padding: 20px;
   overflow-y: auto;
+  max-height: calc(80vh - 60px);
 }
 
 .game-details-card {
   background-color: #f9f9f9;
   border-radius: 5px;
   padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .game-details-row {
   display: flex;
   margin-bottom: 15px;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 15px;
+  align-items: flex-start;
 }
 
 .game-details-row:last-child {
   margin-bottom: 0;
-  border-bottom: none;
-  padding-bottom: 0;
 }
 
 .game-details-label {
@@ -375,5 +401,37 @@
 }
 
 .game-details-value {
-  flex-grow: 1;
+  flex: 1;
+  line-height: 1.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .controls {
+    flex-direction: column;
+  }
+  
+  .control-group {
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+  
+  .games-table {
+    font-size: 14px;
+  }
+  
+  .unavailable-button,
+  .available-button {
+    font-size: 10px;
+    padding: 5px 8px;
+  }
+  
+  .game-details-row {
+    flex-direction: column;
+  }
+  
+  .game-details-label {
+    width: 100%;
+    margin-bottom: 5px;
+  }
 }
