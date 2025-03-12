@@ -15,7 +15,7 @@ const Dashboard = () => {
   // Game details data
   const gameDetails = {
     'Chess': {
-      description: 'A classic strategy board game played on an 8x8 grid. Players control an army of pieces with different movement patterns, trying to checkmate the opponent's king.',
+      description: 'A classic strategy board game played on an 8x8 grid. Players control an army of pieces with different movement patterns, trying to checkmate the opponent\'s king.',
       recommendedAge: '8+',
       playerCount: '2'
     },
@@ -88,47 +88,66 @@ const Dashboard = () => {
 
   // Load games and history from localStorage on component mount
   useEffect(() => {
-    const savedGames = localStorage.getItem('games');
-    const savedHistory = localStorage.getItem('gameHistory');
-    
-    if (savedGames) {
-      setGames(JSON.parse(savedGames));
-    } else {
-      // Initialize with default games if no saved games exist
+    try {
+      const savedGames = localStorage.getItem('games');
+      const savedHistory = localStorage.getItem('gameHistory');
+      
+      if (savedGames) {
+        setGames(JSON.parse(savedGames));
+      } else {
+        // Initialize with default games if no saved games exist
+        const defaultGames = [
+          { id: '0', name: 'Chess', category: 'Strategy', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
+          { id: '1', name: 'Monopoly', category: 'Family', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
+          { id: '2', name: 'Catan', category: 'Strategy', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
+          { id: '3', name: 'Scrabble', category: 'Word', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
+          { id: '4', name: 'Risk', category: 'Strategy', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
+          { id: '5', name: 'Pandemic', category: 'Cooperative', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
+          { id: '6', name: 'Ticket to Ride', category: 'Family', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
+          { id: '7', name: 'Carcassonne', category: 'Strategy', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
+          { id: '8', name: 'Codenames', category: 'Party', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
+          { id: '9', name: 'Dominion', category: 'Card', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
+          { id: '10', name: 'Azul', category: 'Abstract', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
+          { id: '11', name: '7 Wonders', category: 'Strategy', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
+          { id: '12', name: 'Splendor', category: 'Card', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
+          { id: '13', name: 'Dixit', category: 'Party', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null }
+        ];
+        
+        setGames(defaultGames);
+        localStorage.setItem('games', JSON.stringify(defaultGames));
+      }
+      
+      if (savedHistory) {
+        setGameHistory(JSON.parse(savedHistory));
+      }
+    } catch (error) {
+      console.error("Error loading data from localStorage:", error);
+      // Set default games if there's an error
       const defaultGames = [
         { id: '0', name: 'Chess', category: 'Strategy', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
-        { id: '1', name: 'Monopoly', category: 'Family', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
-        { id: '2', name: 'Catan', category: 'Strategy', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
-        { id: '3', name: 'Scrabble', category: 'Word', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
-        { id: '4', name: 'Risk', category: 'Strategy', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
-        { id: '5', name: 'Pandemic', category: 'Cooperative', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
-        { id: '6', name: 'Ticket to Ride', category: 'Family', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
-        { id: '7', name: 'Carcassonne', category: 'Strategy', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
-        { id: '8', name: 'Codenames', category: 'Party', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
-        { id: '9', name: 'Dominion', category: 'Card', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
-        { id: '10', name: 'Azul', category: 'Abstract', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
-        { id: '11', name: '7 Wonders', category: 'Strategy', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
-        { id: '12', name: 'Splendor', category: 'Card', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null },
-        { id: '13', name: 'Dixit', category: 'Party', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null }
+        { id: '1', name: 'Monopoly', category: 'Family', status: 'Available', table: '-', players: '-', timeInUse: '-', startTime: null }
+        // More default games can be added here if needed
       ];
-      
       setGames(defaultGames);
-      localStorage.setItem('games', JSON.stringify(defaultGames));
-    }
-    
-    if (savedHistory) {
-      setGameHistory(JSON.parse(savedHistory));
     }
   }, []);
 
   // Save games to localStorage whenever they change
   useEffect(() => {
-    localStorage.setItem('games', JSON.stringify(games));
+    try {
+      localStorage.setItem('games', JSON.stringify(games));
+    } catch (error) {
+      console.error("Error saving games to localStorage:", error);
+    }
   }, [games]);
 
   // Save history to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem('gameHistory', JSON.stringify(gameHistory));
+    try {
+      localStorage.setItem('gameHistory', JSON.stringify(gameHistory));
+    } catch (error) {
+      console.error("Error saving history to localStorage:", error);
+    }
   }, [gameHistory]);
 
   // Calculate total active players whenever games change
@@ -287,6 +306,10 @@ const Dashboard = () => {
           src="/images/spilcafe_logo.png" 
           alt="Spilcafeen Logo" 
           className="logo"
+          onError={(e) => {
+            e.target.onerror = null; 
+            e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0iI2RkZCIvPjx0ZXh0IHg9IjYwIiB5PSI2MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iIGZpbGw9IiM1NTUiIGZvbnQtc2l6ZT0iMTYiPkxvZ288L3RleHQ+PC9zdmc+';
+          }}
         />
       </div>
       
