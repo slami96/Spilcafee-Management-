@@ -9,7 +9,6 @@ const Dashboard = () => {
   const [totalActivePlayers, setTotalActivePlayers] = useState(0);
   const [gameHistory, setGameHistory] = useState([]);
   const [showHistoryModal, setShowHistoryModal] = useState(false);
-  const [timers, setTimers] = useState({});
 
   // Load games and history from localStorage on component mount
   useEffect(() => {
@@ -96,28 +95,16 @@ const Dashboard = () => {
     return () => clearInterval(timerInterval);
   }, [games]);
 
-  const assignGame = () => {
+  const markAsUnavailable = (gameId) => {
     if (!tableNumber || !playerCount) {
-      alert('Please enter table number and player count');
+      alert('Please enter table number and player count before marking game as unavailable');
       return;
     }
 
-    const selectedGames = games.filter(game => 
-      game.status === 'Available' && 
-      (categoryFilter === 'All' || game.category === categoryFilter)
-    );
-
-    if (selectedGames.length === 0) {
-      alert('No available games match your criteria');
-      return;
-    }
-
-    // Assign the first available game that matches the criteria
-    const gameToAssign = selectedGames[0];
     const currentTime = new Date();
-
+    
     setGames(games.map(game => {
-      if (game.id === gameToAssign.id) {
+      if (game.id === gameId) {
         return {
           ...game,
           status: 'In Use',
@@ -132,18 +119,6 @@ const Dashboard = () => {
 
     setTableNumber('');
     setPlayerCount('');
-  };
-
-  const markAsUnavailable = (gameId) => {
-    setGames(games.map(game => {
-      if (game.id === gameId) {
-        return {
-          ...game,
-          status: 'Unavailable'
-        };
-      }
-      return game;
-    }));
   };
 
   const markAsAvailable = (gameId) => {
@@ -264,12 +239,6 @@ const Dashboard = () => {
               <option value="Word">Word</option>
             </select>
           </div>
-          
-          <div className="control-group">
-            <button className="assign-button" onClick={assignGame}>
-              Assign Game
-            </button>
-          </div>
         </div>
         
         <div className="stats-row">
@@ -322,7 +291,7 @@ const Dashboard = () => {
                       </button>
                     ) : game.status === 'In Use' ? (
                       <button className="available-button" onClick={() => markAsAvailable(game.id)}>
-                        End Game
+                        Mark as Available
                       </button>
                     ) : (
                       <button className="available-button" onClick={() => markAsAvailable(game.id)}>
