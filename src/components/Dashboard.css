@@ -68,21 +68,6 @@
   min-width: 200px;
 }
 
-.assign-button {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  margin-top: 24px;
-}
-
-.assign-button:hover {
-  background-color: #45a049;
-}
-
 .stats-row {
   display: flex;
   justify-content: space-between;
